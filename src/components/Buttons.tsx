@@ -35,4 +35,4 @@ const ButtonPrimary = ({ children, onClick, color="red" }: Props) => {
     );
 }
 
-export { ButtonPrimary };
+export default ButtonPrimary;

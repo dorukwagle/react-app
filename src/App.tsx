@@ -1,10 +1,11 @@
 
-import Form from "./components/Form";
+import ExpenseTracker from "./ExpenseTracker";
+import Form from "./ExpenseTracker";
 
 function App() {
 
     return (
-        <Form></Form>
+        <ExpenseTracker></ExpenseTracker>
     )
 }
 

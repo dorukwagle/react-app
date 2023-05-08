@@ -9,21 +9,29 @@ const expenseSchema = z.object({
         .string()
         .min(3, "Description must be at least 3 characters")
         .max(25, "Description cannot exceed 25 characters"),
-    amount: z.number().min(1, "Amount cannot be less than Rs. 1"),
+    amount: z.number().min(0.01, "Amount cannot be less than Rs 0.01"),
     category: z.string().min(3, "please select an option")
 });
 
 type FormData = z.infer<typeof expenseSchema>;
 
-const ExpenseForm = () => {
+interface Props {
+    onFormSubmit?: (data: FieldValues) => void;
+}
+
+const ExpenseForm = ({ onFormSubmit }: Props) => {
     const {
         register,
         handleSubmit,
+        reset,
         formState: { errors },
     } = useForm<FormData>({ resolver: zodResolver(expenseSchema) });
 
     const handleFormSubmit = (data: FieldValues) => {
-        console.log(data);
+        if (!onFormSubmit) return;
+        
+        onFormSubmit(data);
+        reset();
     };
 
     return (
@@ -80,8 +88,8 @@ const ExpenseForm = () => {
                     id="category"
                     color={errors.category && "failure"}
                     helperText={errors.category?.message}
-                >
-                    <option selected></option>
+                >   
+                    <option></option>
                     <option value="groceries">Groceries</option>
                     <option value="utilities">Utilities</option>
                     <option value="entertainment">Entertainment</option>

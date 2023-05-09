@@ -37,7 +37,7 @@ const ExpenseForm = ({ onFormSubmit }: Props) => {
     return (
         <form
             onSubmit={handleSubmit(handleFormSubmit)}
-            className="flex flex-col gap-4"
+            className="flex flex-col gap-4 mb-10"
         >
             <div>
                 <div className="mb-2 block">

@@ -22,7 +22,7 @@ map.set(
     "bg-purple-700 hover:bg-purple-900 focus:ring-purple-300 dark:bg-purple-600 dark:hover:bg-purple-800 dark:focus:ring-purple-900"
 );
 
-const ButtonPrimary = ({ children, onClick, color="red" }: Props) => {
+const ButtonPrimary = ({ children, onClick, color="red"}: Props) => {
     const className = `focus:outline-none text-white focus:ring-4 ${map.get(color)} font-bold rounded-full text-sm px-5 py-2.5 mb-2`;
 
     return (

@@ -1,12 +1,7 @@
-
-import ExpenseTracker from "./ExpenseTracker";
-import Form from "./ExpenseTracker";
+import ExpenseTracker from "./expense-tracker/ExpenseTracker";
 
 function App() {
-
-    return (
-        <ExpenseTracker></ExpenseTracker>
-    )
+    return <ExpenseTracker></ExpenseTracker>;
 }
 
 export default App;

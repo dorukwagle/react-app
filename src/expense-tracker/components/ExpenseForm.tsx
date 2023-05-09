@@ -1,22 +1,25 @@
-import ButtonPrimary from "./Buttons";
+import ButtonPrimary from "../../components/Buttons";
 import { Label, TextInput, Select } from "flowbite-react";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { FieldValues, useForm } from "react-hook-form";
+import categories from "../categories";
 
 const expenseSchema = z.object({
     description: z
         .string()
         .min(3, "Description must be at least 3 characters")
-        .max(25, "Description cannot exceed 25 characters"),
+        .max(50, "Description cannot exceed 50 characters"),
     amount: z.number().min(0.01, "Amount cannot be less than Rs 0.01"),
-    category: z.string().min(3, "please select an option")
+    category: z.enum(categories, {
+        errorMap: () => ({message: "Category is required"})
+    })
 });
 
 type FormData = z.infer<typeof expenseSchema>;
 
 interface Props {
-    onFormSubmit?: (data: FieldValues) => void;
+    onFormSubmit?: (data: FormData) => void;
 }
 
 const ExpenseForm = ({ onFormSubmit }: Props) => {
@@ -27,10 +30,8 @@ const ExpenseForm = ({ onFormSubmit }: Props) => {
         formState: { errors },
     } = useForm<FormData>({ resolver: zodResolver(expenseSchema) });
 
-    const handleFormSubmit = (data: FieldValues) => {
-        if (!onFormSubmit) return;
-        
-        onFormSubmit(data);
+    const handleFormSubmit = (data: FormData) => {
+        onFormSubmit && onFormSubmit(data);
         reset();
     };
 
@@ -88,11 +89,9 @@ const ExpenseForm = ({ onFormSubmit }: Props) => {
                     id="category"
                     color={errors.category && "failure"}
                     helperText={errors.category?.message}
-                >   
+                >
                     <option></option>
-                    <option value="groceries">Groceries</option>
-                    <option value="utilities">Utilities</option>
-                    <option value="entertainment">Entertainment</option>
+                    {categories.map(category => <option key={category} value={category}>{category}</option>)}
                 </Select>
             </div>
             <div>

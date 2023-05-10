@@ -2,7 +2,7 @@ import ButtonPrimary from "../../components/Buttons";
 import { Label, TextInput, Select } from "flowbite-react";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { FieldValues, useForm } from "react-hook-form";
+import { useForm } from "react-hook-form";
 import categories from "../categories";
 
 const expenseSchema = z.object({
